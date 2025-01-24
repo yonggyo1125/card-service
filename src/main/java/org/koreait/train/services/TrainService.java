@@ -53,6 +53,13 @@ public class TrainService {
             Process process = builder.start();
             int code = process.waitFor();
             log.info("훈련 완료: {}", code);
+
+            // 훈련 데이터 완료 처리
+            QTrainData trainData = QTrainData.trainData;
+            List<TrainData> items = (List<TrainData>)repository.findAll(trainData.done.eq(false));
+            items.forEach(item -> item.setDone(true));
+            repository.saveAllAndFlush(items);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
