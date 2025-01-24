@@ -1,5 +1,6 @@
 package org.koreait.train.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -22,7 +23,10 @@ public class TrainData {
     private double item4;
     private double item5;
 
-    private int target; // 정답 
-    
+    private int target; // 정답
+
+    @Column(length=40)
+    private String targetDescription;
+
     private boolean done; // true - 훈련 완료, false - 훈련 예정
 }
