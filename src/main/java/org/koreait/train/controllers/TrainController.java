@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Profile("ml")
@@ -26,7 +27,9 @@ public class TrainController {
     }
 
     @GetMapping("/predict")
-    public List<Integer> predict(@RequestParam("data") List<Double> items) {
+    public List<Integer> predict(@RequestParam("data") String data) {
+        List<Double> items = Arrays.stream(data.split("_")).map(Double::valueOf).toList();
+        System.out.println("items:" + items);
         return predictService.predict(items);
     }
 }
